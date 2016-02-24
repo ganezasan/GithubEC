@@ -1,0 +1,16 @@
+table,tbody,tr,td{
+  display: block;
+}
+
+p {
+  overflow: hidden;
+}
+
+.images img {
+  height: 100px;
+}
+
+.images li {
+  display: inline-block;
+  margin: 5px;
+}
