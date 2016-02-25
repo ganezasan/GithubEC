@@ -8,3 +8,10 @@ Github Pagesを利用すれば、誰でも無料で商品の登録や注文を�
 ## Demo
 
 [demo](http://ganezasan.github.io/GithubEC/)
+
+## Start App
+
+```
+npm install
+gulp
+```
