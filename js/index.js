@@ -33,6 +33,11 @@ function init(){
     $('.main table').css('display', 'none');
     $('.main[data-type="'+$(this).attr('data-type')+'"] table').css('display','block');
   });
+
+  //parchase
+  $("#purchase").on('click',function(){
+    openModal('success',"PullRequestを送ってください。",true)
+  });
 }
 
 function updateTotal(){
@@ -43,20 +48,14 @@ function updateTotal(){
   totalAmountTag.enter().append('a')
     .text(function(d){return "total: " + d.amount;});
 
-  totalAmountTag.text(function(d){console.log(d); return "total: " + d.amount;});
+  totalAmountTag.text(function(d){return "total: ¥" + d.amount;});
 }
 
 function addCart(item){
   if(this.cart.checkItem(item)){
-    $('[data-remodal-id=modal] .message').text("既にカートに入っています");
-    $('[data-remodal-id=modal] .title')
-      .removeClass('alert-success')
-      .addClass('alert-danger')
-      .text("Alart");
-
-    this.modal.open();
+    openModal('danger',"既にカートに入っています",false);
     return false;
-  };
+  }
 
   var amount = item.body.match(/[\d,]?[\d,]+(\r){1}/);
 
@@ -68,14 +67,9 @@ function addCart(item){
 
   initTable(this.cart.items,'#CartItems');
 
-  $('[data-remodal-id=modal] .message').text(item.title + "をカートに追加しました。");
-  $('[data-remodal-id=modal] .title')
-    .removeClass('alert-danger')
-    .addClass('alert-success')
-    .text("Thank You");
+  var modalMessage = item.title + "をカートに追加しました。";
 
-  this.modal.open();
-
+  openModal('success',modalMessage,false);
 }
 
 function cancelItem(item){
@@ -147,4 +141,29 @@ function setImageViewer(tbodyId){
 
   });
   $('.images').viewer();
+}
+
+function openModal(alart,message,parchase){
+
+  $('[data-remodal-id=modal] .message').text(message);
+
+  if(alart === "success"){
+    $('[data-remodal-id=modal] .title')
+      .removeClass('alert-danger')
+      .addClass('alert-success')
+      .text("Thank You");
+  }else{
+    $('[data-remodal-id=modal] .title')
+      .removeClass('alert-success')
+      .addClass('alert-danger')
+      .text("Alart");
+  }
+
+  if(parchase){
+    $('[data-remodal-id=modal] .markdown-body').css("display","block");
+  }else{
+    $('[data-remodal-id=modal] .markdown-body').css("display","none");
+  }
+
+  this.modal.open();
 }

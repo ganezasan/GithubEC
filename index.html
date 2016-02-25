@@ -37,19 +37,20 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="https://github.com/ganezasan/dump" class='icon'><i class="fa fa-github"></i></a></li>
+              <li class="active"><a href="#/">Home</a></li>
+              <li><a href="https://github.com/ganezasan/dump"class='icon'><i class="fa fa-github"></i></a>
+              </li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li id="totalAmount">
-<!--                 <a>Total: 0</a>
- -->
-              </li>
+              <li id="totalAmount"></li>
               <li>
-                <a id="cartButton" class='icon'>
+                <a id="cartButton" class='icon' data-toggle="dropdown">
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                 </a>
+                <ul class="dropdown-menu">
+                  <li><a id="purchase" href="#">購入する</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -60,7 +61,7 @@
     <div class="container">
 
       <div class="jumbotron">
-        <h1>PullRequestで注文ください!</h1>
+        <h1>PullRequestでご注文ください!</h1>
         <h2>オフィスを移転するため不要になったモノを公開します。</h2>
         <ul>
           <li>ほとんどが2年以内に購入したものなので、わりと綺麗だと思います。</li>
@@ -103,6 +104,34 @@
       <button data-remodal-action="close" class="remodal-close"></button>
       <h1 class="title"></h1>
       <p class='message'></p>
+      <div class="markdown-body" style="display:none;">
+        <h1>install hub</h1>
+
+        <pre><code>brew install hub --HEAD</code></pre>
+
+        <h1>clone repo</h1>
+
+        <pre><code>git clone https://github.com/ganezasan/dump.git</code></pre>
+
+        <h1>create and change branch</h1>
+
+        <pre><code>git checkout -b {{ Your Github Name }}</code></pre>
+
+        <h1>empty commit</h1>
+
+        <pre><code>git commit --allow-empty -m ORDER</code></pre>
+
+        <h1>fork</h1>
+
+        <pre><code>hub fork</code></pre>
+
+        <h1>push your repo</h1>
+
+        <pre><code>git push {{ Your Github Name }}</code></pre>
+
+        <h1>send pull request</h1>
+        <pre><code>hub pull-request -m "〇〇です。宜しくお願いします。"</code></pre>
+      </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
