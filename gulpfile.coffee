@@ -54,10 +54,10 @@ gulp.task 'compile:lib', ->
   bower.commands.install().on 'end', ->
     gulp.src libs.js.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.js'
-      .pipe gulp.dest 'dist'
+      .pipe gulp.dest 'dist/js'
     gulp.src libs.css.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.css'
-      .pipe gulp.dest 'dist'
+      .pipe gulp.dest 'dist/css'
     gulp.src libs.static.map (e) -> "bower_components/#{e}"
       .pipe gulp.dest 'dist/fonts'
 
@@ -65,12 +65,12 @@ gulp.task 'compile:js', ->
   gulp.src sources.js
     .pipe uglify()
     .pipe concat 'app.js'
-    .pipe gulp.dest 'dist'
+    .pipe gulp.dest 'dist/js'
 
 gulp.task 'compile:css', ->
   gulp.src sources.css
     .pipe concat 'app.css'
-    .pipe gulp.dest 'dist'
+    .pipe gulp.dest 'dist/css'
 
 gulp.task 'compile:static', ->
   gulp.src sources.static
