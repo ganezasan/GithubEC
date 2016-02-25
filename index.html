@@ -10,7 +10,10 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/imageviewer/dist/viewer.css" />
-    <link rel="stylesheet" href="bower_components/github-markdown-css/github-markdown.css" />
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal.css">
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- endbower -->
     <link rel="stylesheet" href="styles/index.css">
   </head>
@@ -34,12 +37,13 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="https://github.com/ganezasan/dump" class='icon'><i class="fa fa-github"></i></a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a id="cartButton" class='btn-lg' type="button">
+                <a id="cartButton" class='icon'>
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                 </a>
               </li>
@@ -53,6 +57,15 @@
 
       <div class="jumbotron">
         <h1>Allo! Allo!</h1>
+        <ul>
+          <li>オフィスを移転するため不要になったモノを公開します。</li>
+          <li>ほとんどが2年以内に購入したものなので、わりと綺麗だと思います。</li>
+          <li>Githubのissuesで商品を登録していますので、PullRequeseでissueの番号を指定して送ってもらえると嬉しいです。ただ、住所や連絡先の交換はGithub上で行ってもいいですが、筒抜けなのでメールを想定しています。</li>
+          <li>興味がある場合はご連絡ください。連絡手段はTwitter,FacebookのMessage,Github Issuesなどとくに問いません。</li>
+          <li>現物見たい場合も比較的時間調整できると思います。オフィスに遊びに来てください。</li>
+          <li>メールはこちらまでお願いします。</li>
+        </ul>
+
       </div>
       <div class="col-xs-12">
 
@@ -61,17 +74,30 @@
           <li role="presentation" data-type="sold"><a href="#">Sold out</a></li>
           <li role="presentation" data-type="cart"><a href="#">Cart</a></li>
         </ul>
-
-        <table id="Items" class="table" style="display: block;"></table>
+        <div class="row main" data-type="sale">
+          <table id="SaleItems" class="table" style="display: block;"><tbody></tbody></table>
+        </div>
+        <div class="row main" data-type="sold">
+          <table id="SoldItems" class="table" style="display: none;" ><tbody></tbody></table>
+        </div>
+        <div class="row main" data-type="cart">
+          <table id="CartItems" class="table" style="display: none;"><tbody></tbody></table>
+        </div>
       </div>
-
-
     </div>
 
+    <!-- Footer -->
     <div class="footer">
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span> from the Gnezasan</p>
       </div>
+    </div>
+
+    <!-- Modal -->
+    <div data-remodal-id="alertModal">
+      <button data-remodal-action="close" class="remodal-close"></button>
+      <h1 class="alert-danger">Alert</h1>
+      <p class='message'></p>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -91,9 +117,11 @@
     <script src="bower_components/marked/lib/marked.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/imageviewer/dist/viewer.js"></script>
+    <script src="bower_components/remodal/dist/remodal.min.js"></script>
     <!-- end bower:js -->
 
     <!-- js/:js -->
+    <script src="js/cart.js"></script>
     <script src="js/index.js"></script>
     <!-- end js/:js -->
 </body>
