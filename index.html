@@ -8,14 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/imageviewer/dist/viewer.css" />
-    <link rel="stylesheet" href="bower_components/remodal/dist/remodal.css">
-    <link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib.css" />
     <!-- endbower -->
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="app.css">
   </head>
   <body>
     <!-- Add your site or application content here -->
@@ -61,7 +56,7 @@
     <div class="container">
 
       <div class="jumbotron">
-        <h1>PullRequestでご注文ください!</h1>
+        <h1>PullRequestご注文ください!</h1>
         <h2>オフィスを移転するため不要になったモノを公開します。</h2>
         <ul>
           <li>ほとんどが2年以内に購入したものなので、わりと綺麗だと思います。</li>
@@ -119,7 +114,7 @@
 
         <h1>empty commit</h1>
 
-        <pre><code>git commit --allow-empty -m ORDER</code></pre>
+        <pre><code id="OrderMessage">git commit --allow-empty -m ORDER</code></pre>
 
         <h1>fork</h1>
 
@@ -146,17 +141,11 @@
     </script>
 
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/marked/lib/marked.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/imageviewer/dist/viewer.js"></script>
-    <script src="bower_components/remodal/dist/remodal.min.js"></script>
+    <script src="lib.js"></script>
     <!-- end bower:js -->
 
     <!-- js/:js -->
-    <script src="js/cart.js"></script>
-    <script src="js/index.js"></script>
+    <script src="app.js"></script>
     <!-- end js/:js -->
 </body>
 </html>
