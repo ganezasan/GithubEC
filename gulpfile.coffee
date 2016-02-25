@@ -29,7 +29,7 @@ libs =
   css:    [
     'bootstrap/dist/css/bootstrap.css'
     'imageviewer/dist/viewer.min.css'
-    'font-awesome/css/font-awesome.min.css'
+    'font-awesome/css/font-awesome.css'
     'remodal/dist/remodal.css'
     'remodal/dist/remodal-default-theme.css'
   ]
@@ -84,4 +84,4 @@ gulp.task 'browser-sync', ->
 
 gulp.task 'deploy', ->
   gulp.src 'dist/**/*'
-    .pipe ghPages
+    .pipe ghPages()
