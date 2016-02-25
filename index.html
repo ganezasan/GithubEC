@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>GithubEC</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">PullReqEC</a>
+            <a class="navbar-brand" href="#/">GithubEC</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -42,6 +42,10 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li id="totalAmount">
+<!--                 <a>Total: 0</a>
+ -->
+              </li>
               <li>
                 <a id="cartButton" class='icon'>
                   <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -56,14 +60,15 @@
     <div class="container">
 
       <div class="jumbotron">
-        <h1>Allo! Allo!</h1>
+        <h1>PullRequestで注文ください!</h1>
+        <h2>オフィスを移転するため不要になったモノを公開します。</h2>
         <ul>
-          <li>オフィスを移転するため不要になったモノを公開します。</li>
           <li>ほとんどが2年以内に購入したものなので、わりと綺麗だと思います。</li>
-          <li>Githubのissuesで商品を登録していますので、PullRequeseでissueの番号を指定して送ってもらえると嬉しいです。ただ、住所や連絡先の交換はGithub上で行ってもいいですが、筒抜けなのでメールを想定しています。</li>
+          <li>Githubのissuesで商品を登録していますので、PullRequeseでissueの番号を指定して送ってもらえると嬉しいです。ただ、住所や連絡先の交換はGithub上で行ってもいいですが、筒抜けなのでメールを想定しています。何かいいアイディアがあれば教えてください。</li>
           <li>興味がある場合はご連絡ください。連絡手段はTwitter,FacebookのMessage,Github Issuesなどとくに問いません。</li>
           <li>現物見たい場合も比較的時間調整できると思います。オフィスに遊びに来てください。</li>
-          <li>メールはこちらまでお願いします。</li>
+          <li>送料込ではないです。できればオフィスまで来て持っていって頂ける方を優先したいです。</li>
+          <li>メールは<span style="color:#337ab7;">info@cheekit.com</span>までお願いします。</li>
         </ul>
 
       </div>
@@ -94,9 +99,9 @@
     </div>
 
     <!-- Modal -->
-    <div data-remodal-id="alertModal">
+    <div data-remodal-id="modal">
       <button data-remodal-action="close" class="remodal-close"></button>
-      <h1 class="alert-danger">Alert</h1>
+      <h1 class="title"></h1>
       <p class='message'></p>
     </div>
 

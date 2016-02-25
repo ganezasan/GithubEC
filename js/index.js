@@ -12,11 +12,9 @@ function init(){
     smartypants: false
   });
 
-  this.alertModal = $('[data-remodal-id=alertModal]').remodal();
+  this.modal = $('[data-remodal-id=modal]').remodal();
 
-
-
-  d3.json("https://api.github.com/repos/ganezasan/dump/issues?state=all", function(error, json) {
+  d3.json("https://api.github.com/repos/ganezasan/dump/issues?state=all&per_page=100", function(error, json) {
     this.openIssues = json.filter(function(d){ return d.state === 'open' && d.pull_request === undefined; });
     this.closedIssues = json.filter(function(d){ return d.state === 'closed' && d.pull_request === undefined; });
     initTable(this.openIssues,'#SaleItems');
@@ -25,6 +23,8 @@ function init(){
   });
 
   this.cart = new Cart();
+
+  updateTotal();
 
   //change tab
   $("#tabs li").on('click',function(e){
@@ -35,17 +35,47 @@ function init(){
   });
 }
 
+function updateTotal(){
+  var totalAmountTag = d3.select("#totalAmount")
+    .selectAll('a')
+    .data([this.cart]);
+
+  totalAmountTag.enter().append('a')
+    .text(function(d){return "total: " + d.amount;});
+
+  totalAmountTag.text(function(d){console.log(d); return "total: " + d.amount;});
+}
+
 function addCart(item){
   if(this.cart.checkItem(item)){
-    $('[data-remodal-id=alertModal] .message').text("既にカートに入っています");
-    this.alertModal.open();
+    $('[data-remodal-id=modal] .message').text("既にカートに入っています");
+    $('[data-remodal-id=modal] .title')
+      .removeClass('alert-success')
+      .addClass('alert-danger')
+      .text("Alart");
+
+    this.modal.open();
     return false;
   };
 
-  item.amount = 1000;
+  var amount = item.body.match(/[\d,]?[\d,]+(\r){1}/);
+
+  item.amount = amount.length > 0 ? Number(amount[0].split(",").join("")) : 0;
+
   this.cart.addItem(item);
 
+  updateTotal();
+
   initTable(this.cart.items,'#CartItems');
+
+  $('[data-remodal-id=modal] .message').text(item.title + "をカートに追加しました。");
+  $('[data-remodal-id=modal] .title')
+    .removeClass('alert-danger')
+    .addClass('alert-success')
+    .text("Thank You");
+
+  this.modal.open();
+
 }
 
 function cancelItem(item){
@@ -68,6 +98,7 @@ function initTable(json,tbodyId){
     .text(function(d) { return "#"+ d.number +" : "+ d.title });
 
   td.append("text")
+    .attr("class", "detail")
     .attr("dy", ".3em")
     .style("text-anchor", "middle")
     .html(function(d) { return marked(d.body) });
@@ -103,6 +134,8 @@ function setImageViewer(tbodyId){
 
   $(tbodyId + ' tr').each(function(i,contents){
     var imgs = $(contents).find('img').get();
+
+    $(contents).find('.images').remove();
 
     var ul = $('<ul>').attr('class','images');
     imgs.forEach(function(img){
