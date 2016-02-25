@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GithubEC</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="lib.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">GithubEC</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#/">Home</a></li>
+              <li><a href="https://github.com/ganezasan/dump"class='icon'><i class="fa fa-github"></i></a>
+              </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li id="totalAmount"></li>
+              <li>
+                <a id="cartButton" class='icon' data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a id="purchase" href="#">購入する</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="jumbotron">
+        <h1>PullRequestご注文ください!</h1>
+        <h2>オフィスを移転するため不要になったモノを公開します。</h2>
+        <ul>
+          <li>ほとんどが2年以内に購入したものなので、わりと綺麗だと思います。</li>
+          <li>Githubのissuesで商品を登録していますので、PullRequeseでissueの番号を指定して送ってもらえると嬉しいです。ただ、住所や連絡先の交換はGithub上で行ってもいいですが、筒抜けなのでメールを想定しています。何かいいアイディアがあれば教えてください。</li>
+          <li>興味がある場合はご連絡ください。連絡手段はTwitter,FacebookのMessage,Github Issuesなどとくに問いません。</li>
+          <li>現物見たい場合も比較的時間調整できると思います。オフィスに遊びに来てください。</li>
+          <li>送料込ではないです。できればオフィスまで来て持っていって頂ける方を優先したいです。</li>
+          <li>メールは<span style="color:#337ab7;">info@cheekit.com</span>までお願いします。</li>
+        </ul>
+
+      </div>
+      <div class="col-xs-12">
+
+        <ul id="tabs" class="nav nav-tabs">
+          <li role="presentation" class="active" data-type="sale"><a href="#">Sale</a></li>
+          <li role="presentation" data-type="sold"><a href="#">Sold out</a></li>
+          <li role="presentation" data-type="cart"><a href="#">Cart</a></li>
+        </ul>
+        <div class="row main" data-type="sale">
+          <table id="SaleItems" class="table" style="display: block;"><tbody></tbody></table>
+        </div>
+        <div class="row main" data-type="sold">
+          <table id="SoldItems" class="table" style="display: none;" ><tbody></tbody></table>
+        </div>
+        <div class="row main" data-type="cart">
+          <table id="CartItems" class="table" style="display: none;"><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Gnezasan</p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div data-remodal-id="modal">
+      <button data-remodal-action="close" class="remodal-close"></button>
+      <h1 class="title"></h1>
+      <p class='message'></p>
+      <div class="markdown-body" style="display:none;">
+        <h1>install hub</h1>
+
+        <pre><code>brew install hub --HEAD</code></pre>
+
+        <h1>clone repo</h1>
+
+        <pre><code>git clone https://github.com/ganezasan/dump.git</code></pre>
+
+        <h1>create and change branch</h1>
+
+        <pre><code>git checkout -b {{ Your Github Name }}</code></pre>
+
+        <h1>empty commit</h1>
+
+        <pre><code id="OrderMessage">git commit --allow-empty -m ORDER</code></pre>
+
+        <h1>fork</h1>
+
+        <pre><code>hub fork</code></pre>
+
+        <h1>push your repo</h1>
+
+        <pre><code>git push {{ Your Github Name }}</code></pre>
+
+        <h1>send pull request</h1>
+        <pre><code>hub pull-request -m "〇〇です。宜しくお願いします。"</code></pre>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-44140005-10');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- bower:js -->
+    <script src="lib.js"></script>
+    <!-- end bower:js -->
+
+    <!-- js/:js -->
+    <script src="app.js"></script>
+    <!-- end js/:js -->
+</body>
+</html>
