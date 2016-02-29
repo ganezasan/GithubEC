@@ -12,19 +12,12 @@ function init(){
     smartypants: false
   });
 
-  this.modal = $('[data-remodal-id=modal]').remodal();
-
   d3.json("https://api.github.com/repos/ganezasan/dump/issues?state=all&per_page=100", function(error, json) {
     this.openIssues = json.filter(function(d){ return d.state === 'open' && d.pull_request === undefined; });
     this.closedIssues = json.filter(function(d){ return d.state === 'closed' && d.pull_request === undefined; });
     initTable(this.openIssues,'#SaleItems');
     initTable(this.closedIssues,'#SoldItems');
-    initTable(this.cart.items,'#CartItems');
   });
-
-  this.cart = new Cart();
-
-  updateTotal();
 
   //change tab
   $("#tabs li").on('click',function(e){
@@ -34,59 +27,6 @@ function init(){
     $('.main[data-type="'+$(this).attr('data-type')+'"] table').css('display','block');
   });
 
-  //parchase
-  $("#purchase").on('click',function(){
-    openModal('success',"PullRequestを送ってください。",true);
-  });
-}
-
-function updateTotal(){
-  var totalAmountTag = d3.select("#totalAmount")
-    .selectAll('a')
-    .data([this.cart]);
-
-  totalAmountTag.enter().append('a')
-    .text(function(d){return "total: " + d.amount;});
-
-  totalAmountTag.text(function(d){return "total: ¥" + d.amount;});
-}
-
-function addCart(item){
-  if(this.cart.checkItem(item)){
-    openModal('danger',"既にカートに入っています",false);
-    return false;
-  }
-
-  item.amount = getAmount(item.body);
-
-  this.cart.addItem(item);
-
-  updateTotal();
-
-  initTable(this.cart.items,'#CartItems');
-
-  var modalMessage = item.title + "をカートに追加しました。";
-
-  openModal('success',modalMessage,false);
-}
-
-function cancelItem(item){
-  item.amount = getAmount(item.body);
-
-  this.cart.cancelItem(item);
-
-  updateTotal();
-
-  updateTable(this.cart.items,'#CartItems');
-
-  var modalMessage = item.title + "をカートから削除しました。";
-
-  openModal('success',modalMessage,false);
-}
-
-function getAmount(body){
-  var amount = body.match(/[\d,]?[\d,]+(\r){1}/);
-  return amount.length > 0 ? Number(amount[0].split(",").join("")) : 0;
 }
 
 function initTable(json,tbodyId){
@@ -99,62 +39,19 @@ function initTable(json,tbodyId){
   tr.exit().remove();
 
   td.append("h2")
-    .text(function(d) { return "#"+ d.number +" : "+ d.title });
+    .append("a")
+    .attr("xlink:href", function(d) {return d.html_url;})
+    .attr("xlink:target","_blank")
+    .html(function(d) { return "#"+ d.number +" : "+ d.title; })
+    .on("click",function(e){
+      window.open().location.href = e.html_url;
+    });
 
   td.append("text")
     .attr("class", "detail")
     .attr("dy", ".3em")
     .style("text-anchor", "middle")
     .html(function(d) { return marked(d.body); });
-
-  if(tbodyId === '#SaleItems' || tbodyId === '#CartItems'){
-    var button = td.append("button")
-      .attr('class','btn btn-default')
-  }
-
-  if(tbodyId === '#SaleItems'){
-    button.text('add')
-      .on("click", function(e){ addCart(e); });
-  }else if(tbodyId === '#CartItems'){
-    button.text('cancel')
-      .on("click", function(e){ cancelItem(e); });
-  }
-
-  setImageViewer(tbodyId);
-}
-
-function updateTable(json,tbodyId){
-  var tbody = d3.select(tbodyId).select('tbody');
-
-  var tr = tbody.selectAll('tr')
-    .data(json);
-
-  tr.enter().append('tr').append('td');
-  tr.exit().remove();
-
-  td = tbody.selectAll('td').data(json);
-
-  td.select("h2")
-    .text(function(d) { return "#"+ d.number +" : "+ d.title });
-
-  td.select("text")
-    .attr("class", "detail")
-    .attr("dy", ".3em")
-    .style("text-anchor", "middle")
-    .html(function(d) { return marked(d.body); });
-
-  if(tbodyId === '#SaleItems' || tbodyId === '#CartItems'){
-    var button = td.select("button")
-      .attr('class','btn btn-default')
-  }
-
-  if(tbodyId === '#SaleItems'){
-    button.text('add')
-      .on("click", function(e){ addCart(e); });
-  }else if(tbodyId === '#CartItems'){
-    button.text('cancel')
-      .on("click", function(e){ cancelItem(e); });
-  }
 
   setImageViewer(tbodyId);
 }
@@ -190,39 +87,4 @@ function setImageViewer(tbodyId){
     }
   });
   $('.images').viewer();
-}
-
-function openModal(alart,message,parchase){
-
-  $('[data-remodal-id=modal] .message').text(message);
-
-  if(alart === "success"){
-    $('[data-remodal-id=modal] .title')
-      .removeClass('alert-danger')
-      .addClass('alert-success')
-      .text("Thank You");
-  }else{
-    $('[data-remodal-id=modal] .title')
-      .removeClass('alert-success')
-      .addClass('alert-danger')
-      .text("Alart");
-  }
-
-  if(parchase){
-    var command = "git commit --allow-empty -m ";
-    var orderMessage = "";
-    this.cart.items.forEach(function(item){
-      orderMessage += "close #" + item.number + " ";
-    });
-
-    command += "\"" + orderMessage + "\"";
-
-    $("#OrderMessage").text(command);
-
-    $('[data-remodal-id=modal] .markdown-body').css("display","block");
-  }else{
-    $('[data-remodal-id=modal] .markdown-body').css("display","none");
-  }
-
-  this.modal.open();
 }
